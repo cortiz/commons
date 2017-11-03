@@ -1,0 +1,4 @@
+rootProject.name = 'crafter-commons'
+include ':crafter-commons-utilities'
+
+project(':crafter-commons-utilities').projectDir = "$rootDir/utilities" as File

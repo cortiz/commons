@@ -1,3 +1,19 @@
+====
+    Copyright (C) 2007-2017 Crafter Software Corporation.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+====
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at tellus in lectus tristique dapibus. Vivamus vitae velit nec felis sodales ultrices in ac erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse quis diam nunc. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed vel lobortis est, et condimentum tellus. Morbi posuere varius odio, a pretium elit tincidunt ut. Morbi congue suscipit quam. Mauris auctor, dolor eu tristique semper, massa felis ultricies sapien, et auctor lacus neque non erat.
 
 Mauris mi velit, consequat quis ligula et, elementum sodales diam. Ut tristique facilisis nisi mattis consequat. Integer lacus enim, fermentum ac accumsan vitae, gravida tempor risus. Suspendisse at mi convallis, auctor lacus et, facilisis erat. Duis interdum urna felis, varius pretium risus semper id. Nulla pharetra odio varius tortor condimentum, vitae feugiat neque posuere. Praesent nec consequat urna. Sed elementum enim semper imperdiet consectetur.

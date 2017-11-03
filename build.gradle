@@ -1,0 +1,100 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        // Add dependency for build script,
+        // so we can access Git from our
+        // build script.
+        classpath 'org.ajoberstar:grgit:1.1.0'
+        classpath "gradle.plugin.nl.javadude.gradle.plugins:license-gradle-plugin:0.14.0"
+
+    }
+}
+
+ext {
+    // Open the Git repository in the current directory.
+    git = org.ajoberstar.grgit.Grgit.open(dir: ".")
+    // Get commit id of HEAD.
+    revision = git.head().id
+    // Alternative is using abbreviatedId of head() method.
+    // revision = git.head().abbreviatedId
+}
+
+allprojects {
+
+    group = 'org.craftercms'
+    version = '3.0.2-SNAPSHOT'
+    repositories {
+        mavenCentral()
+    }
+
+
+}
+
+subprojects { subproject ->
+    apply plugin: 'java'
+    apply plugin: 'checkstyle'
+    apply plugin: 'pmd'
+    apply plugin: "jacoco"
+    apply plugin: 'findbugs'
+    apply plugin: 'jdepend'
+    apply plugin: "com.github.hierynomus.license"
+    apply plugin: 'signing'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    checkstyle {
+        configFile = rootProject.file('checkstyle.xml')
+        toolVersion = "7.7"
+        ignoreFailures = true
+    }
+    findbugs {
+        ignoreFailures = true
+    }
+    license {
+        header rootProject.file('LICENSE-HEADER')
+        strictCheck true
+    }
+
+    jar {
+        manifest {
+            attributes(
+                    "Implementation-Build": revision,
+                    "Implementation-Title": subproject.description,//TODO check why description does not work
+                    "Implementation-Version": subproject.version,
+                    "Build-On": new Date().getTime(),
+                    "Build-Date": new Date().format("yyyy-MM-dd'T'HH:mm:ss'Z'", TimeZone.getTimeZone("UTC")),
+                    "Implementation-Vendor": "CrafterCMS",
+                    "Build-Jdk": System.properties.'java.version'
+            )
+        }
+    }
+    javadoc{
+        failOnError= false
+    }
+
+    signing {
+        sign configurations.archives
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+    task packageSources(type: Jar) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+    task javadocJar(type: Jar) {
+        classifier = 'javadoc'
+        from javadoc
+    }
+    artifacts {
+        archives javadocJar, packageSources
+    }
+
+}
