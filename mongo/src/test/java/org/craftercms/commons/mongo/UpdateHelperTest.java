@@ -53,25 +53,20 @@ public class UpdateHelperTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        doAnswer(new Answer<Void>() {
+        doAnswer((Answer<Void>) invocation -> {
+            Object[] args = invocation.getArguments();
 
-            @Override
-            public Void answer(InvocationOnMock invocation) throws Throwable {
-                Object[] args = invocation.getArguments();
+            id = (String)args[0];
+            modifier = (String)args[1];
 
-                id = (String)args[0];
-                modifier = (String)args[1];
+            params = new ArrayList<>(4);
+            params.add(args[4]);
+            params.add(args[5]);
+            params.add(args[6]);
+            params.add(args[7]);
 
-                params = new ArrayList<>(4);
-                params.add(args[4]);
-                params.add(args[5]);
-                params.add(args[6]);
-                params.add(args[7]);
-
-                return null;
-            }
-
-        }).when(repository).update(anyString(), anyString(), eq(false), eq(false), anyVararg());
+            return null;
+        }).when(repository).update(anyString(), anyString(), eq(false), eq(false), any());
 
         updateHelper = new UpdateHelper();
     }

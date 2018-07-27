@@ -73,11 +73,8 @@ public class ZipUtils {
      * @throws IOException
      */
     public static void zipFiles(List<File> files, File zipFile) throws IOException {
-        OutputStream os = new BufferedOutputStream(new FileOutputStream(zipFile));
-        try {
+        try(OutputStream os = new BufferedOutputStream(new FileOutputStream(zipFile))) {
             zipFiles(files, os);
-        } finally {
-            IOUtils.closeQuietly(os);
         }
     }
 
@@ -94,14 +91,9 @@ public class ZipUtils {
 
         while (ze != null) {
             File file = new File(outputFolder, ze.getName());
-            OutputStream os = new BufferedOutputStream(FileUtils.openOutputStream(file));
-
-            try {
+            try(OutputStream os = new BufferedOutputStream(FileUtils.openOutputStream(file))){
                 IOUtils.copy(zis, os);
-            } finally {
-                IOUtils.closeQuietly(os);
             }
-
             zis.closeEntry();
             ze = zis.getNextEntry();
         }
@@ -115,11 +107,8 @@ public class ZipUtils {
      * @throws IOException
      */
     public static void unZipFiles(File zipFile, File outputFolder) throws IOException {
-        InputStream is = new BufferedInputStream(new FileInputStream(zipFile));
-        try {
+        try (InputStream is = new BufferedInputStream(new FileInputStream(zipFile))){
             unZipFiles(is, outputFolder);
-        } finally {
-            IOUtils.closeQuietly(is);
         }
     }
 
@@ -158,11 +147,8 @@ public class ZipUtils {
 
         zos.putNextEntry(new ZipEntry(currentPath));
 
-        InputStream is = new BufferedInputStream(new FileInputStream(file));
-        try {
-            IOUtils.copy(is, zos);
-        } finally {
-            IOUtils.closeQuietly(is);
+        try(InputStream is = new BufferedInputStream(new FileInputStream(file))){
+          IOUtils.copy(is, zos);
         }
 
         zos.closeEntry();
