@@ -16,19 +16,20 @@
  */
 package org.craftercms.commons.cache;
 
-import javax.annotation.PostConstruct;
-
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.config.CacheConfiguration;
+import org.ehcache.Cache;
+import org.ehcache.config.CacheConfiguration;
+import org.ehcache.config.builders.CacheManagerBuilder;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Required;
 
+import javax.annotation.PostConstruct;
+
 /**
  * Spring {@link org.springframework.beans.factory.FactoryBean} used to create EhCache caches as beans.
- *
+ * @deprecated {@link org.springframework.cache.ehcache.EhCacheFactoryBean}
  * @author avasquez
  */
+@Deprecated(since = "3.0.16",forRemoval = true)
 public class EhCacheFactoryBean implements FactoryBean<Cache> {
 
     private CacheConfiguration configuration;
@@ -41,9 +42,7 @@ public class EhCacheFactoryBean implements FactoryBean<Cache> {
 
     @PostConstruct
     public void init() {
-        cache = new Cache(configuration);
-
-        CacheManager.getInstance().addCache(cache);
+       cache = CacheManagerBuilder.newCacheManagerBuilder().build().createCache(configuration.toString(), configuration);
     }
 
     @Override

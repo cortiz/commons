@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd">
+    <suppress>
+        <notes><![CDATA[
+      file name: some.jar
+      ]]></notes>
+        <filePath regex="false">.ehcache-2.10.5.jar\rest-management-private-classpath/META-INF/maven/com.fasterxml.jackson.core/jackson-databind/pom.xml:</filePath>
+        <cpe>cpe:/a:apache:struts:2.0.0</cpe>
+    </suppress>
+</suppressions>
